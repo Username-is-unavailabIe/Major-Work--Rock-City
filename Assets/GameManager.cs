@@ -11,15 +11,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI Timeleft;
     public int ExpeditionTime = 0;
     public static float StartTime = -20;
-    public List<RockBattleScript> rockBattleScripts = new List<RockBattleScript>();
+    public List<GameObject> BRocks = new List<GameObject>();
     public GameObject BattleRockPrefab;
     // Start is called before the first frame update
     
     public void SpawnRock(RockScript rock)
     {
         //GameManager becomes unattached to button when you go on an expedition
-        LoadBattle();
-        GameObject Newrock = Instantiate(BattleRockPrefab);
+        //LoadBattle();
+        GameObject Newrock = Instantiate(BattleRockPrefab, transform);
+        //Right now it makes a new BR and adds the script to it which is an issue
         RockBattleScript NewBRS = Newrock.GetComponent<RockBattleScript>();
         NewBRS.name = rock.name;
         NewBRS.health = rock.health;
@@ -35,8 +36,16 @@ public class GameManager : MonoBehaviour
         NewBRS.magecraft = rock.magecraft;
         NewBRS.speed = rock.speed;
         NewBRS.points = rock.points;
+        BRocks.Add(Newrock);
+
     }
     
+    /**public void GenerateEnemies()
+    {
+
+    }**/
+
+
     public void LoadBattle()
     {
         SceneManager.LoadScene(2);

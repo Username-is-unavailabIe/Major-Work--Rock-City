@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class RockScript : MonoBehaviour
 {
-    public int xp;
+    
     public int points;
     //xp needed for next level = 100r^(n-1)
-    public int level;
+    public int level = 1;
     public TextMeshProUGUI leveltext;
     public string name;
     public TextMeshProUGUI nametext;
@@ -31,7 +31,8 @@ public class RockScript : MonoBehaviour
     public TextMeshProUGUI speedtext;
     public bool Chosen = false;
     public UnityEngine.UI.Toggle ChosenToggle;
-
+    public int xp;
+    public int xpNeeded;
 
     public int ability1;
     public int ability2;
@@ -40,6 +41,7 @@ public class RockScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        xp = Mathf.RoundToInt(100 * (1-(Mathf.Pow(1.2f, level-1)))/-0.2f);
         leveltext.text = level.ToString();
         nametext.text = name;
         ArchText.text = Archetype;
@@ -68,11 +70,14 @@ public class RockScript : MonoBehaviour
     {
         if (ChosenToggle.isOn) { Chosen = true; }
         else { Chosen = false; }
+        xpNeeded = Mathf.RoundToInt(100 * (1 - Mathf.Pow(1.2f, level)) / -0.2f)-xp;
+
+
     }
     public void Getxp(int xpGained)
     {
         xp = xp + xpGained;
-        if (xp >= (100*(Mathf.Pow(1.2f, level+1))))
+        if (xpNeeded <= 0)
         {
             levelup();
         }

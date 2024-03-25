@@ -14,16 +14,16 @@ public class Mainscript : MonoBehaviour
     public List<string> lastnames = new List<string> {"Skullcrusher", "Johnson"};
     public List<string> archetypes = new List<string> { "Wizard", "Sorcerer", /**"Healer", **/"Assassin", "Nimble", "Tank", "Fighter"};
     public List<string> subtypes = new List<string> { "Sky", "Forest", "Blood", "Sea", "Fire", "Earth"};
-    public int GameLevel = 2;
+    public int GameLevel = 1;
     public List<int> stats = new List<int>();
     public GameObject RockPrefab;
     public Transform RockGrid;
-    public GameObject gm;
+    public GameManager gm;
     public List<RockScript> Rocks = new List<RockScript>();
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.Find("GameManager");
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         MakeRocks(4);
     }
 
@@ -37,7 +37,7 @@ public class Mainscript : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            GenerateRock();
+            GenerateRock(Generatelevel());
         }
     }
 
@@ -82,7 +82,7 @@ public class Mainscript : MonoBehaviour
     }
 
 
-    public void GenerateRock()
+    public void GenerateRock(int level)
     {
         // Rock NewRock = new Rock();
         GameObject NewRockPrefab = Instantiate(RockPrefab, RockGrid);
@@ -97,7 +97,7 @@ public class Mainscript : MonoBehaviour
        
         
         //Generates a level
-        NewRockScript.level = Generatelevel();
+        NewRockScript.level = level;
         
 
         //Generates archetype and subtype
@@ -192,7 +192,7 @@ public class Mainscript : MonoBehaviour
     }
     public void CloseScene()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
     }
 
     public int Generatelevel()

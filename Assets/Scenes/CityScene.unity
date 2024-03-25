@@ -1099,7 +1099,7 @@ MonoBehaviour:
   Timeleft: {fileID: 0}
   ExpeditionTime: 0
   rockBattleScripts: []
-  BattleRockPrefab: {fileID: 0}
+  BattleRockPrefab: {fileID: 1875180148749392034, guid: b098ba27977dd87478b076ff9e615926, type: 3}
 --- !u!4 &1275904278
 Transform:
   m_ObjectHideFlags: 0
