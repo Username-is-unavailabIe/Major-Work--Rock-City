@@ -192,7 +192,7 @@ public class Mainscript : MonoBehaviour
     }
     public void CloseScene()
     {
-        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 
     public int Generatelevel()

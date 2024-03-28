@@ -8,7 +8,8 @@ using TMPro;
 
 public class CityScript : MonoBehaviour
 {
-
+    public UnityEngine.Canvas mainCanvas;
+    public UnityEngine.Canvas unitCanvas;
     
     public TextMeshProUGUI Timeleft;
     
@@ -16,7 +17,7 @@ public class CityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        unitCanvas.enabled = false;
     }
     public void LoadExpedition()
     {
@@ -29,10 +30,27 @@ public class CityScript : MonoBehaviour
 
     }
 
+    public void LoadBattle()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     // Update is called once per frame
     void Update()
     {
        
         
+    }
+
+    public void SeeUnits()
+    {
+        mainCanvas.enabled = false;
+        unitCanvas.enabled = true;
+    }
+
+    public void ExitUnits()
+    {
+        mainCanvas.enabled = true;
+        unitCanvas.enabled = false;
     }
 }
