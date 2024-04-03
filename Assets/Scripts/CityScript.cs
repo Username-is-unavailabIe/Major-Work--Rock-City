@@ -46,6 +46,7 @@ public class CityScript : MonoBehaviour
     {
         mainCanvas.enabled = false;
         unitCanvas.enabled = true;
+        
     }
 
     public void ExitUnits()
