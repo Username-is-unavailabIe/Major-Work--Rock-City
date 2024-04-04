@@ -10,7 +10,7 @@ public class CityScript : MonoBehaviour
 {
     public UnityEngine.Canvas mainCanvas;
     public UnityEngine.Canvas unitCanvas;
-    
+    public GameObject UnitPrefab;
     public TextMeshProUGUI Timeleft;
     
     //public SceneManager ExpeditionScene = SceneManager.GetSceneAt(1);
@@ -33,6 +33,13 @@ public class CityScript : MonoBehaviour
     public void LoadBattle()
     {
         SceneManager.LoadScene(2);
+        foreach (GameObject Rock in GameManager.BRocks)
+        {
+            
+            GameObject NewUnit = Instantiate(UnitPrefab);
+            //NewUnit.
+        }
+        
     }
 
     // Update is called once per frame

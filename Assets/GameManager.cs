@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI Timeleft;
     public int ExpeditionTime = 0;
     public static float StartTime = -20;
-    public List<GameObject> BRocks = new List<GameObject>();
+    public static List<GameObject> BRocks = new List<GameObject>();
     public GameObject BattleRockPrefab;
     // Start is called before the first frame update
     
