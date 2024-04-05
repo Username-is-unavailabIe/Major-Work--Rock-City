@@ -1300,8 +1300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 775669216}
   unitCanvas: {fileID: 2145915068}
-  UnitPrefab: {fileID: 0}
+  UnitPrefab: {fileID: 2366927335028005982, guid: bc13fcb35e03d264db18f67a67cab35b, type: 3}
   Timeleft: {fileID: 0}
+  Grid: {fileID: 148727472}
 --- !u!1 &521821997
 GameObject:
   m_ObjectHideFlags: 0

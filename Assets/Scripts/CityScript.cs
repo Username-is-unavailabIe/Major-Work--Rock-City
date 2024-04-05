@@ -12,6 +12,7 @@ public class CityScript : MonoBehaviour
     public UnityEngine.Canvas unitCanvas;
     public GameObject UnitPrefab;
     public TextMeshProUGUI Timeleft;
+    public Transform Grid;
     
     //public SceneManager ExpeditionScene = SceneManager.GetSceneAt(1);
     // Start is called before the first frame update
@@ -33,12 +34,7 @@ public class CityScript : MonoBehaviour
     public void LoadBattle()
     {
         SceneManager.LoadScene(2);
-        foreach (GameObject Rock in GameManager.BRocks)
-        {
-            
-            GameObject NewUnit = Instantiate(UnitPrefab);
-            //NewUnit.
-        }
+
         
     }
 
@@ -53,7 +49,23 @@ public class CityScript : MonoBehaviour
     {
         mainCanvas.enabled = false;
         unitCanvas.enabled = true;
-        
+        foreach (GameObject Rock in GameManager.BRocks)
+        {
+            RockBattleScript NewRBS = Rock.GetComponent<RockBattleScript>();
+            GameObject NewUnit = Instantiate(UnitPrefab, Grid);
+            RockScript NewRockScript = NewUnit.GetComponent<RockScript>();
+            NewRockScript.leveltext.text = NewRBS.level.ToString();
+            NewRockScript.nametext.text = NewRBS.name;
+            NewRockScript.ArchText.text = NewRBS.Archetype.ToString();
+            NewRockScript.attacktext.text = $"Attack: {NewRBS.attack}";
+            NewRockScript.defencetext.text = $"Defence: {NewRBS.defence}";
+            NewRockScript.magecrafttext.text = $"Magecraft: {NewRBS.magecraft}";
+            NewRockScript.healthtext.text = $"health: {NewRBS.health}";
+            NewRockScript.speedtext.text = $"speed: {NewRBS.speed}";
+
+
+        }
+
     }
 
     public void ExitUnits()
