@@ -14,17 +14,18 @@ public class Mainscript : MonoBehaviour
     public List<string> lastnames = new List<string> {"Skullcrusher", "Johnson"};
     public List<string> archetypes = new List<string> { "Wizard", "Sorcerer", /**"Healer", **/"Assassin", "Nimble", "Tank", "Fighter"};
     public List<string> subtypes = new List<string> { "Sky", "Forest", "Blood", "Sea", "Fire", "Earth"};
-    public int GameLevel = 1;
+    public GameManager gm;
+    public int GameLevel;
     public List<int> stats = new List<int>();
     public GameObject RockPrefab;
     public Transform RockGrid;
-    public GameManager gm;
     public List<RockScript> Rocks = new List<RockScript>();
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         MakeRocks(4);
+        GameLevel = gm.GameLevel;
     }
 
     // Update is called once per frame

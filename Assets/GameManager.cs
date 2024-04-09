@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public int GameLevel = 1;
     public TextMeshProUGUI Timeleft;
     public int ExpeditionTime = 0;
     public static float StartTime = -20;
-    public static List<GameObject> BRocks = new List<GameObject>();
+    public List<GameObject> BRocks = new List<GameObject>();
     public GameObject BattleRockPrefab;
     // Start is called before the first frame update
     

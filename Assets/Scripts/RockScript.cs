@@ -68,7 +68,7 @@ public class RockScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ChosenToggle.isOn) { Chosen = true; }
+        if (ChosenToggle != null && ChosenToggle.isOn) { Chosen = true; }
         else { Chosen = false; }
         xpNeeded = Mathf.RoundToInt(100 * (1 - Mathf.Pow(1.2f, level)) / -0.2f)-xp;
 
