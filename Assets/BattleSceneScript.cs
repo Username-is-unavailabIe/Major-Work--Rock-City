@@ -14,6 +14,7 @@ public class BattleSceneScript : MonoBehaviour
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         GameLevel = gm.GameLevel;
+        CreateEnemies(Random.Range(1,3));
     }
 
     public void MakeEnemy(int GameLevel)
