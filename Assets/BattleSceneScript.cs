@@ -8,12 +8,15 @@ public class BattleSceneScript : MonoBehaviour
     public RockScript rockScript;
     public int GameLevel;
     public GameObject EnemyPrefab;
+    public Transform PlayerGrid;
+    public GameObject PlayerPrefab;
     public List<string> archetypes = new List<string> { "Wizard", "Sorcerer", "Assassin", "Nimble", "Tank", "Fighter" };
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         GameLevel = gm.GameLevel;
+        FindBROCK();
         CreateEnemies(Random.Range(1,3));
     }
 
@@ -27,6 +30,16 @@ public class BattleSceneScript : MonoBehaviour
         {
             EnemyScript.level = (GameLevel + leveldeterminer) * Random.Range(1, 3);
             EnemyScript.name = $"BOSS: {EnemyScript.Archetype} {EnemyScript.level}";
+        }
+    }
+    public void FindBROCK()
+    {
+        for (int i = 0; i < gm.BRocks.Count; i++)
+        {
+            print("Hi");
+            GameObject Prefabi = Instantiate(PlayerPrefab, PlayerGrid);
+            BattleButtonScript BBS = Prefabi.GetComponent<BattleButtonScript>();
+            BBS.index = i;
         }
     }
 

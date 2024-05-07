@@ -10,8 +10,8 @@ using UnityEngine.UIElements;
 
 public class Mainscript : MonoBehaviour
 {
-    public List<string> firstnames = new List<string> {"Dave", "Alex", "Serena", "Dwayne", "Spencer"};
-    public List<string> lastnames = new List<string> {"Skullcrusher", "Johnson"};
+     List<string> firstnames = new List<string> {"Dave", "Alex", "Serena", "Dwayne", "Spencer", "Elizabeth", "Gabriel", "Phoebe", "Malcolm", "Abel", "Cain", "Fitz", "Hawk", "Faker", "Vera", "Lynette", "Kai", "Sunny", "Charlie", "Lilith"};
+     List<string> lastnames = new List<string> {"Skullcrusher", "Slasher", "Frazer", "Blackguard", "Nightingale", "The Arcane", "The Wise", "The Unholy", "The Holy", "Farseer", "Windsor", "Bar-Giora", "Visoli", "Steel" };
     public List<string> archetypes = new List<string> { "Wizard", "Sorcerer", /**"Healer", **/"Assassin", "Nimble", "Tank", "Fighter"};
     public List<string> subtypes = new List<string> { "Sky", "Forest", "Blood", "Sea", "Fire", "Earth"};
     public GameManager gm;
