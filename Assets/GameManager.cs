@@ -1,67 +1,154 @@
+//using System.Collections;
+//using System.Collections.Generic;
+//using TMPro;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+
+
+//public class GameManager : MonoBehaviour
+//{
+//    private static GameManager instance;
+//    public int GameLevel = 1;
+//    public TextMeshProUGUI Timeleft;
+//    public int ExpeditionTime = 0;
+//    public static float StartTime = -20;
+//    public List<GameObject> BRocks = new List<GameObject>();
+//    public GameObject BattleRockPrefab;
+//    // Start is called before the first frame update
+
+//    public void SpawnRock(RockScript rock)
+//    {
+//        //GameManager becomes unattached to button when you go on an expedition
+//        //LoadBattle();
+//        GameObject Newrock = Instantiate(BattleRockPrefab, transform);
+//        //Right now it makes a new BR and adds the script to it which is an issue
+//        RockBattleScript NewBRS = Newrock.GetComponent<RockBattleScript>();
+//        NewBRS.name = rock.name;
+//        NewBRS.health = rock.health;
+//        NewBRS.xp = rock.xp;
+//        NewBRS.Archetype = rock.Archetype;
+//        NewBRS.ability1 = rock.ability1;
+//        NewBRS.ability2 = rock.ability2;
+//        NewBRS.ability3 = rock.ability3;
+//        NewBRS.subtype = rock.subtype;
+//        NewBRS.attack = rock.attack;
+//        NewBRS.defence = rock.defence;
+//        NewBRS.level = rock.level;
+//        NewBRS.magecraft = rock.magecraft;
+//        NewBRS.speed = rock.speed;
+//        NewBRS.points = rock.points;
+//        BRocks.Add(Newrock);
+
+//    }
+
+//    /**public void GenerateEnemies()
+//    {
+
+//    }**/
+
+
+//    public void LoadBattle()
+//    {
+//        SceneManager.LoadScene(2);
+//    }
+
+
+//    void Start()
+//    {
+//        //if () {;}
+//        //DontDestroyOnLoad(gameObject);
+
+//        InvokeRepeating("ShowTime", 0, 1);
+//    }
+//    private void Awake()
+//    {
+//        if (instance == null)
+//        {
+//            instance = this;
+//            DontDestroyOnLoad(gameObject);
+//        }
+//        else
+//        {
+//            Destroy(gameObject);
+//        }
+
+//    }
+
+
+
+//    /**void TimeLeft()
+//    {
+//        if (ExpeditionTime > 0)
+//        {
+//            ExpeditionTime--;
+//            Timeleft.text = ExpeditionTime.ToString();
+
+//        }
+
+//    }**/
+//    void ShowTime()
+//    {
+//        print(Time.time);
+//    }
+//    // Update is called once per frame
+//    void Update()
+//    {
+
+//    }
+//}
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+// This script manages the game state
 public class GameManager : MonoBehaviour
 {
+    // Singleton instance of GameManager
     private static GameManager instance;
+
+    // Variables related to game state
     public int GameLevel = 1;
     public TextMeshProUGUI Timeleft;
     public int ExpeditionTime = 0;
     public static float StartTime = -20;
     public List<GameObject> BRocks = new List<GameObject>();
     public GameObject BattleRockPrefab;
-    // Start is called before the first frame update
-    
+
+    //spawn a new rock
     public void SpawnRock(RockScript rock)
     {
-        //GameManager becomes unattached to button when you go on an expedition
-        //LoadBattle();
+        // Instantiate a new BattleRock and get RockBattleScript off of that
         GameObject Newrock = Instantiate(BattleRockPrefab, transform);
-        //Right now it makes a new BR and adds the script to it which is an issue
         RockBattleScript NewBRS = Newrock.GetComponent<RockBattleScript>();
+
+        // Copy everything from the original rock to the new BattleRock
         NewBRS.name = rock.name;
-        NewBRS.health = rock.health;
-        NewBRS.xp = rock.xp;
-        NewBRS.Archetype = rock.Archetype;
-        NewBRS.ability1 = rock.ability1;
-        NewBRS.ability2 = rock.ability2;
-        NewBRS.ability3 = rock.ability3;
-        NewBRS.subtype = rock.subtype;
-        NewBRS.attack = rock.attack;
-        NewBRS.defence = rock.defence;
-        NewBRS.level = rock.level;
-        NewBRS.magecraft = rock.magecraft;
-        NewBRS.speed = rock.speed;
         NewBRS.points = rock.points;
+
+        // Add the new BattleRock to the list
         BRocks.Add(Newrock);
-
     }
-    
-    /**public void GenerateEnemies()
-    {
 
-    }**/
-
-
+    //load the battle scene
     public void LoadBattle()
     {
         SceneManager.LoadScene(2);
     }
-    
-    
+
+
     void Start()
     {
-        //if () {;}
-        //DontDestroyOnLoad(gameObject);
-
+        // Call the ShowTime method every second
         InvokeRepeating("ShowTime", 0, 1);
     }
+
+    // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        //  if an instance already exists, destroy this one
         if (instance == null)
         {
             instance = this;
@@ -71,28 +158,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
-
-    
-    /**void TimeLeft()
-    {
-        if (ExpeditionTime > 0)
-        {
-            ExpeditionTime--;
-            Timeleft.text = ExpeditionTime.ToString();
-
-        }
-
-    }**/
+    //show the current time
     void ShowTime()
     {
         print(Time.time);
     }
-    // Update is called once per frame
+
+ 
     void Update()
     {
-        
+
     }
 }
