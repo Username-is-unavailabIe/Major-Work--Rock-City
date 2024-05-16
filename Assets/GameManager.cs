@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
     public int ExpeditionTime = 0;
     public static float StartTime = -20;
     public List<GameObject> BRocks = new List<GameObject>();
+    public List<GameObject> Enemies = new List<GameObject>();
+    public GameObject EnemyPrefab;
     public GameObject BattleRockPrefab;
 
     //spawn a new rock
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
     //show the current time
     void ShowTime()
     {
-        print(Time.time);
+        //print(Time.time);
     }
 
  

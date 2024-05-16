@@ -1303,6 +1303,7 @@ MonoBehaviour:
   UnitPrefab: {fileID: 2366927335028005982, guid: bc13fcb35e03d264db18f67a67cab35b, type: 3}
   Timeleft: {fileID: 0}
   Grid: {fileID: 148727472}
+  gm: {fileID: 0}
 --- !u!1 &521821997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,8 +2117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be77e1ec516771f42acc074b23de13a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameLevel: 1
   Timeleft: {fileID: 0}
   ExpeditionTime: 0
+  BRocks: []
+  Enemies: []
+  EnemyPrefab: {fileID: 1875180148749392034, guid: 285f50c4bbdf80942962543aa9112aef, type: 3}
   BattleRockPrefab: {fileID: 1875180148749392034, guid: b098ba27977dd87478b076ff9e615926, type: 3}
 --- !u!4 &1275904278
 Transform:
