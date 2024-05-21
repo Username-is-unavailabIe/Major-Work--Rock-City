@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     // Variables related to game state
+    public GameObject RockParent;
     public int GameLevel = 1;
     public TextMeshProUGUI Timeleft;
     public int ExpeditionTime = 0;
@@ -119,16 +120,26 @@ public class GameManager : MonoBehaviour
     public GameObject EnemyPrefab;
     public GameObject BattleRockPrefab;
 
+
     //spawn a new rock
     public void SpawnRock(RockScript rock)
     {
         // Instantiate a new BattleRock and get RockBattleScript off of that
-        GameObject Newrock = Instantiate(BattleRockPrefab, transform);
+        GameObject Newrock = Instantiate(BattleRockPrefab, RockParent.transform);
         RockBattleScript NewBRS = Newrock.GetComponent<RockBattleScript>();
 
         // Copy everything from the original rock to the new BattleRock
         NewBRS.name = rock.name;
         NewBRS.points = rock.points;
+        NewBRS.speed = rock.speed;
+        NewBRS.health = rock.health;
+        NewBRS.xp = rock.xp;
+        NewBRS.Archetype = rock.Archetype;
+        NewBRS.defence = rock.defence;
+        NewBRS.attack = rock.attack;
+        NewBRS.magecraft = rock.magecraft;
+        NewBRS.rarity = rock.rarity;
+
 
         // Add the new BattleRock to the list
         BRocks.Add(Newrock);
@@ -143,6 +154,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        RockParent = GameObject.Find("RocksParent");
         // Call the ShowTime method every second
         InvokeRepeating("ShowTime", 0, 1);
     }
