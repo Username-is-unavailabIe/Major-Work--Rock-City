@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> Enemies = new List<GameObject>();
     public GameObject EnemyPrefab;
     public GameObject BattleRockPrefab;
+    public GameObject EnemyParent;
 
 
     //spawn a new rock
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
         NewBRS.attack = rock.attack;
         NewBRS.magecraft = rock.magecraft;
         NewBRS.rarity = rock.rarity;
+        NewBRS.level = rock.level;
 
 
         // Add the new BattleRock to the list
@@ -154,6 +156,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        EnemyParent = GameObject.Find("EnemiesParent");
         RockParent = GameObject.Find("RocksParent");
         // Call the ShowTime method every second
         InvokeRepeating("ShowTime", 0, 1);

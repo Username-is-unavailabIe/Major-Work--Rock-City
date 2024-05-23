@@ -12,7 +12,7 @@ public class BattleSceneScript : MonoBehaviour
     public RockScript rockScript;
     public int GameLevel;
     
-    public GameObject EnemyParent;
+   // public GameObject EnemyParent;
     public Transform PlayerGrid;
     public GameObject PlayerPrefab;
     public Transform EnemyGrid;
@@ -26,7 +26,7 @@ public class BattleSceneScript : MonoBehaviour
     {
         // Find the GameManager and get the Game Level from the script that is on the GameManager
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        EnemyParent = GameObject.Find("EnemiesParent");
+        gm.EnemyParent = GameObject.Find("EnemiesParent");
         
         GameLevel = gm.GameLevel;
 
@@ -41,9 +41,8 @@ public class BattleSceneScript : MonoBehaviour
     {
         print("make");
         // Instantiate enemy and get its script
-        GameObject NewEnemy = Instantiate(gm.EnemyPrefab, EnemyParent.transform);
+        GameObject NewEnemy = Instantiate(gm.EnemyPrefab, gm.EnemyParent.transform);
         RockBattleScript EnemyScript = gm.EnemyPrefab.GetComponent<RockBattleScript>();
-
         // Determine enemy level based on game level, with it being slightly more random at higher levels
         int leveldeterminer = Random.Range(-(1 + GameLevel / 3), 1 + GameLevel / 3);
         EnemyScript.Archetype = archetypes[Random.Range(0, archetypes.Count)];
@@ -51,16 +50,16 @@ public class BattleSceneScript : MonoBehaviour
         // 10% chance to make the enemy a boss
         if (Random.Range(1, 10) == 10)
         {
-            EnemyScript.level = Mathf.Abs(GameLevel + leveldeterminer) * Random.Range(2, 4);
+            EnemyScript.level = Mathf.Abs(GameLevel + leveldeterminer+1) * Random.Range(2, 5);
             EnemyScript.name = $"BOSS: {EnemyScript.Archetype} {EnemyScript.level}";
         }
         else
         {
 
-            EnemyScript.level = (GameLevel + leveldeterminer);
+            EnemyScript.level = Mathf.Clamp(GameLevel + leveldeterminer, 1, 999);
             EnemyScript.name = $"{EnemyScript.Archetype} {EnemyScript.level}";
         }
-        if (EnemyScript.level <= 0) { EnemyScript.level = 1; }
+        
         GenerateEstats(EnemyScript.level*5);
 
         if (EnemyScript.Archetype == "Wizard" || EnemyScript.Archetype == "Sorcerer")
@@ -69,7 +68,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[2];
             EnemyScript.health = EStats[Mathf.RoundToInt(EStats.Count/2)];
             EnemyScript.defence = EStats[Mathf.RoundToInt(EStats.Count / 2)-1];
-            EnemyScript.speed = (EnemyScript.defence)/ 3;
+            EnemyScript.speed = Mathf.Clamp((EnemyScript.defence)/ 3,1, 9999);
         }
         else if (EnemyScript.Archetype == "Fighter" || EnemyScript.Archetype == "Assassin" || EnemyScript.Archetype == "Tank")
         {
@@ -77,7 +76,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[EStats.Count-1];
             EnemyScript.health = EStats[EStats.Count - 2];
             EnemyScript.defence = EStats[EStats.Count - 3];
-            EnemyScript.speed = EStats[2];
+            EnemyScript.speed = Mathf.Clamp(EStats[2],1 , 9999);
         }
         else if (EnemyScript.Archetype == "Nimble")
         {
@@ -85,7 +84,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[Mathf.RoundToInt(EStats.Count/2)];
             EnemyScript.health = EStats[4];
             EnemyScript.defence = EStats[3];
-            EnemyScript.speed = EStats[Mathf.RoundToInt(EStats.Count/3)];
+            EnemyScript.speed = EStats[Mathf.RoundToInt(Mathf.Clamp(EStats.Count/3, 1, 9999))];
         }
 
         gm.Enemies.Add(NewEnemy);
@@ -118,6 +117,7 @@ public class BattleSceneScript : MonoBehaviour
         {
             GameObject Prefabi = Instantiate(PlayerPrefab, EnemyGrid);
             BattleButtonScript BBS = Prefabi.GetComponent<BattleButtonScript>();
+            BBS.isEnemy = true;
             BBS.index = i;
         }
     }
