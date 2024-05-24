@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // This script controls the battle scene in the game
 public class BattleSceneScript : MonoBehaviour
@@ -44,7 +45,7 @@ public class BattleSceneScript : MonoBehaviour
         GameObject NewEnemy = Instantiate(gm.EnemyPrefab, gm.EnemyParent.transform);
         RockBattleScript EnemyScript = gm.EnemyPrefab.GetComponent<RockBattleScript>();
         // Determine enemy level based on game level, with it being slightly more random at higher levels
-        int leveldeterminer = Random.Range(-(1 + GameLevel / 3), 1 + GameLevel / 3);
+        int leveldeterminer = Random.Range(0, 2 + GameLevel);
         EnemyScript.Archetype = archetypes[Random.Range(0, archetypes.Count)];
 
         // 10% chance to make the enemy a boss
@@ -161,5 +162,13 @@ public class BattleSceneScript : MonoBehaviour
         EStats[numA] = EStats[numB];
         EStats[numB] = Placeholder;
 
+    }
+
+
+
+    //Exits the Scene
+    public void ExitBattle()
+    {
+        SceneManager.LoadScene(1);
     }
 }

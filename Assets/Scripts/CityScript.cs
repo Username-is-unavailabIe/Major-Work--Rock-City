@@ -28,14 +28,14 @@ public class CityScript : MonoBehaviour
         {
 
             GameManager.StartTime = Time.time;
-            SceneManager.LoadScene(1); 
+            SceneManager.LoadScene(2); 
         }
 
     }
 
     public void LoadBattle()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
 
         
     }
