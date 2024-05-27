@@ -115,7 +115,7 @@ public class Mainscript : MonoBehaviour
         if (NewRockScript.Archetype == "Wizard")
         {
             NewRockScript.magecraft = stats[20];
-            NewRockScript.speed = Mathf.RoundToInt(stats[6] / 2);
+            NewRockScript.speed = Mathf.RoundToInt(stats[6]);
             NewRockScript.health = 3 * stats[5];
             NewRockScript.defence = Mathf.RoundToInt(stats[4]/4);
             NewRockScript.attack = stats[3];
@@ -123,7 +123,7 @@ public class Mainscript : MonoBehaviour
         else if (NewRockScript.Archetype == "Sorcerer")
         {
             NewRockScript.magecraft = stats[14];
-            NewRockScript.speed = Mathf.RoundToInt(stats[11] / 2); ;
+            NewRockScript.speed = Mathf.RoundToInt(stats[11]); ;
             NewRockScript.health = 3*stats[8];
             NewRockScript.defence = Mathf.RoundToInt(stats[9] / 4);
             NewRockScript.attack = stats[10];
@@ -131,7 +131,7 @@ public class Mainscript : MonoBehaviour
         else if (NewRockScript.Archetype == "Healer")
         {
             NewRockScript.magecraft = stats[8];
-            NewRockScript.speed = Mathf.RoundToInt(stats[6] / 2);
+            NewRockScript.speed = Mathf.RoundToInt(stats[6]);
             NewRockScript.health = 3 * stats[7];
             NewRockScript.defence = Mathf.RoundToInt(stats[3] / 4);
             NewRockScript.attack = stats[0];
@@ -139,7 +139,7 @@ public class Mainscript : MonoBehaviour
         else if (NewRockScript.Archetype == "Assassin")
         {
             NewRockScript.magecraft = stats[2];
-            NewRockScript.speed = NewRockScript.speed = Mathf.RoundToInt(stats[12] / 2);
+            NewRockScript.speed = NewRockScript.speed = Mathf.RoundToInt(stats[12]);
 
             NewRockScript.health = 3*stats[0];
             NewRockScript.defence = Mathf.RoundToInt(stats[1] / 4);
@@ -148,7 +148,7 @@ public class Mainscript : MonoBehaviour
         else if (NewRockScript.Archetype == "Nimble")
         {
             NewRockScript.magecraft = stats[2];
-            NewRockScript.speed = Mathf.RoundToInt(stats[20] / 2);
+            NewRockScript.speed = Mathf.RoundToInt(stats[20]);
 
             NewRockScript.health = 3 * stats[8];
             NewRockScript.defence = Mathf.RoundToInt(stats[7] / 4);
@@ -157,16 +157,16 @@ public class Mainscript : MonoBehaviour
         else if (NewRockScript.Archetype == "Tank")
         {
             NewRockScript.magecraft = stats[0];
-            NewRockScript.speed = Mathf.RoundToInt(stats[1] / 2);
+            NewRockScript.speed = Mathf.RoundToInt(stats[1]);
 
-            NewRockScript.health = 3 * stats[18];
+            NewRockScript.health = 4 * stats[18];
             NewRockScript.defence = Mathf.RoundToInt(stats[16] / 4);
             NewRockScript.attack = stats[10];
         }
         else
         {
             NewRockScript.magecraft = stats[0];
-            NewRockScript.speed = Mathf.RoundToInt(stats[11] / 2);
+            NewRockScript.speed = Mathf.RoundToInt(stats[11]);
             NewRockScript.health = 3 * stats[10];
             NewRockScript.defence = Mathf.RoundToInt(stats[12] / 4);
             NewRockScript.attack = stats[14];

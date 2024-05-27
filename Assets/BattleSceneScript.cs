@@ -1,9 +1,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // This script controls the battle scene in the game
 public class BattleSceneScript : MonoBehaviour
@@ -12,6 +14,7 @@ public class BattleSceneScript : MonoBehaviour
     public GameManager gm;
     public RockScript rockScript;
     public int GameLevel;
+    public TextMeshProUGUI TurnText; 
     
    // public GameObject EnemyParent;
     public Transform PlayerGrid;
@@ -35,6 +38,7 @@ public class BattleSceneScript : MonoBehaviour
         FindBROCK();
         CreateEnemies(Random.Range((gm.BRocks.Count-GameLevel+1), gm.BRocks.Count+GameLevel-1));
         FindEnemy();
+        RunBattle();
     }
 
     // Create an enemy with a random archetype and level
@@ -69,7 +73,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[2];
             EnemyScript.health = EStats[Mathf.RoundToInt(EStats.Count/2)];
             EnemyScript.defence = EStats[Mathf.RoundToInt(EStats.Count / 2)-1];
-            EnemyScript.speed = Mathf.Clamp((EnemyScript.defence)/ 3,1, 9999);
+            EnemyScript.speed = Mathf.Clamp((EnemyScript.defence),1, 9999);
         }
         else if (EnemyScript.Archetype == "Fighter" || EnemyScript.Archetype == "Assassin" || EnemyScript.Archetype == "Tank")
         {
@@ -77,7 +81,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[EStats.Count-1];
             EnemyScript.health = EStats[EStats.Count - 2];
             EnemyScript.defence = EStats[EStats.Count - 3];
-            EnemyScript.speed = Mathf.Clamp(EStats[2],1 , 9999);
+            EnemyScript.speed = Mathf.Clamp(EStats[3],1 , 9999);
         }
         else if (EnemyScript.Archetype == "Nimble")
         {
@@ -85,7 +89,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.attack = EStats[Mathf.RoundToInt(EStats.Count/2)];
             EnemyScript.health = EStats[4];
             EnemyScript.defence = EStats[3];
-            EnemyScript.speed = EStats[Mathf.RoundToInt(Mathf.Clamp(EStats.Count/3, 1, 9999))];
+            EnemyScript.speed = EStats[EStats.Count-1];
         }
 
         gm.Enemies.Add(NewEnemy);
@@ -129,7 +133,7 @@ public class BattleSceneScript : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             MakeEnemy(GameLevel);
-            print("create");
+            //print("create");
         }
     }
 
@@ -164,7 +168,11 @@ public class BattleSceneScript : MonoBehaviour
 
     }
 
-
+    public void RunBattle()
+    {
+        RockBattleScript Turn = gm.FindTurn();
+        TurnText.text = ($"Turn: {Turn.name}");
+    }
 
     //Exits the Scene
     public void ExitBattle()

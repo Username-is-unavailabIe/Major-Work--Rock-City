@@ -86,14 +86,52 @@ public class GameManager : MonoBehaviour
         //print(Time.time);
     }
 
-    public void FindTurn()
+    public RockBattleScript FindTurn()
     {
-        int Speedtotal = 0;
+
+        List<RockBattleScript> CombinedList = new List<RockBattleScript>();
+
+
         for (int i = 0; i < BRocks.Count; i++)
         {
-            RockBattleScript RBSbattle = BRocks[i].GetComponent <RockBattleScript>();
-            Speedtotal = Speedtotal + RBSbattle.speed;
+            for (int j = 0; j < BRocks[i].GetComponent<RockBattleScript>().speed; j++)
+            {
+                CombinedList.Add(BRocks[i].GetComponent<RockBattleScript>());
+            }
         }
+        for (int i = 0; i < Enemies.Count; i++)
+        {
+            for (int l = 0; l < Enemies[i].GetComponent<RockBattleScript>().speed; l++)
+            {
+                CombinedList.Add(Enemies[i].GetComponent<RockBattleScript>());
+            }
+        }
+        int ranNum = Random.Range(0, CombinedList.Count);
+        //CombinedList[ranNum].health = 200;
+        print(CombinedList[ranNum].name);
+        return CombinedList[ranNum];
+
+        //int Speedtotal = 0;
+        //for (int i = 0; i < BRocks.Count; i++)
+        //{
+        //    RockBattleScript RBSbattle = BRocks[i].GetComponent <RockBattleScript>();
+        //    Speedtotal = Speedtotal + RBSbattle.speed;
+        //}
+        //for (int i = 0; i < Enemies.Count; i++)
+        //{
+        //    RockBattleScript EnemyBS = Enemies[i].GetComponent <RockBattleScript>();
+        //    Speedtotal += EnemyBS.speed;
+        //}
+        //print(Speedtotal);
+        //int TurnRandom = Random.Range(1, Speedtotal);
+        //if (TurnRandom <= BRocks[0].GetComponent<RockBattleScript>().speed)
+        //{
+        //    return 0;
+        //}
+        //else if (TurnRandom > BRocks[0].GetComponent<RockBattleScript>().speed && TurnRandom >= BRocks[1].GetComponent<RockBattleScript>().speed)
+        //{
+
+        //}
     }
  
     void Update()
