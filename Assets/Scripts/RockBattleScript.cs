@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class RockBattleScript : MonoBehaviour
 {
     public int xp;
+    public int TempHealth;
     public int points;
     //xp needed for next level = 100r^(n-1)
     public int level;

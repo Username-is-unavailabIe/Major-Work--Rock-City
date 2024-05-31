@@ -36,7 +36,7 @@ public class BattleSceneScript : MonoBehaviour
 
         // Find all Battle Rocks and creates a random amount of enemies (will be changed to
         FindBROCK();
-        CreateEnemies(Random.Range((gm.BRocks.Count-GameLevel+1), gm.BRocks.Count+GameLevel-1));
+        CreateEnemies(Mathf.Clamp(Random.Range((gm.BRocks.Count-GameLevel+1), gm.BRocks.Count+GameLevel-1), 1, 1000));
         FindEnemy();
         RunBattle();
     }
@@ -113,6 +113,7 @@ public class BattleSceneScript : MonoBehaviour
             GameObject Prefabi = Instantiate(PlayerPrefab, PlayerGrid);
             BattleButtonScript BBS = Prefabi.GetComponent<BattleButtonScript>();
             BBS.index = i;
+            gm.BRocks[i].GetComponent<RockBattleScript>().TempHealth = gm.BRocks[i].GetComponent<RockBattleScript>().health;
         }
     }
 
@@ -132,7 +133,7 @@ public class BattleSceneScript : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            MakeEnemy(GameLevel);
+            MakeEnemy(GameLevel+1);
             //print("create");
         }
     }
@@ -172,6 +173,34 @@ public class BattleSceneScript : MonoBehaviour
     {
         RockBattleScript Turn = gm.FindTurn();
         TurnText.text = ($"Turn: {Turn.name}");
+        RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
+        int damage = Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3;
+        Target.TempHealth -= damage;
+        if (Target.TempHealth <= 0)
+        {
+            if (Turn.CompareTag("Enemy"))
+            {
+                foreach (Transform PlayerPrefab in PlayerGrid)
+                {
+                    if (PlayerPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
+                    {
+                        Destroy(PlayerPrefab);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Transform EnemyPrefab in EnemyGrid)
+                {
+                    if (EnemyPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
+                    {
+                        Destroy(EnemyPrefab);
+                    }
+                }
+            }
+
+        }
+         
     }
 
     //Exits the Scene

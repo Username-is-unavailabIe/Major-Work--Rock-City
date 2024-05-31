@@ -133,6 +133,18 @@ public class GameManager : MonoBehaviour
 
         //}
     }
+    public RockBattleScript FindTarget(string Turnclassification)
+    {
+        if (Turnclassification == "Enemy")
+        {
+            return BRocks[Random.Range(0, BRocks.Count)].GetComponent<RockBattleScript>();
+           
+        }
+        else
+        {
+            return Enemies[Random.Range(0, Enemies.Count)].GetComponent<RockBattleScript>();
+        }
+    }
  
     void Update()
     {
