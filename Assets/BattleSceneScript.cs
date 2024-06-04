@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -125,6 +126,7 @@ public class BattleSceneScript : MonoBehaviour
             BattleButtonScript BBS = Prefabi.GetComponent<BattleButtonScript>();
             BBS.isEnemy = true;
             BBS.index = i;
+            gm.Enemies[i].GetComponent<RockBattleScript>().TempHealth = gm.Enemies[i].GetComponent<RockBattleScript>().health;
         }
     }
 
@@ -174,33 +176,81 @@ public class BattleSceneScript : MonoBehaviour
         RockBattleScript Turn = gm.FindTurn();
         TurnText.text = ($"Turn: {Turn.name}");
         RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
+        print("Target: "+Target.name);
         int damage = Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3;
         Target.TempHealth -= damage;
         if (Target.TempHealth <= 0)
         {
-            if (Turn.CompareTag("Enemy"))
             {
-                foreach (Transform PlayerPrefab in PlayerGrid)
+                foreach (Transform Prefab in PlayerGrid)
                 {
-                    if (PlayerPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
+                    if (Prefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
                     {
+                        Prefab.GetComponent<Button>().interactable = false;
+                    }
+                }
+                foreach (GameObject PlayerPrefab in gm.BRocks)
+                {
+                    
+                    if (PlayerPrefab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
+                    {
+                        print(PlayerPrefab.GetComponent<RockBattleScript>().name);
+                        gm.BRocks.Remove(PlayerPrefab);
                         Destroy(PlayerPrefab);
                     }
                 }
-            }
-            else
-            {
+
                 foreach (Transform EnemyPrefab in EnemyGrid)
                 {
+
                     if (EnemyPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
                     {
-                        Destroy(EnemyPrefab);
+                        print(EnemyPrefab.GetComponent<BattleButtonScript>().name);
+                        EnemyPrefab.GetComponent<Button>().interactable = false;
                     }
                 }
+
+                foreach (GameObject Efab in gm.Enemies)
+                {
+                    if (Efab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
+                    {
+                        print(Efab.GetComponent<RockBattleScript>().name);
+                        gm.Enemies.Remove(Efab);
+                        Destroy(Efab);
+                    }
+
+                }
+               
+
             }
 
         }
-         
+        if (gm.Enemies.Count == 0)
+        {
+            print("You Win!");
+            foreach (GameObject rock in gm.BRocks)
+            {
+                RockBattleScript script = rock.GetComponent<RockBattleScript>();
+                script.level++;
+                int statMod = Random.Range(2, 2 + script.rarity);
+                script.attack += Random.Range(1, statMod);
+                script.defence += Random.Range(0, statMod / 2);
+                script.health += Random.Range(3, statMod * 3);
+                script.magecraft += Random.Range(0, statMod / 2);
+                script.speed += Random.Range(0, statMod / 3);
+
+            }
+            gm.GameLevel += 2;
+            ExitBattle();
+        }
+        else if (gm.BRocks.Count == 0)
+        {
+            print("You Lost");
+            gm.GameLevel++;
+            ExitBattle();
+        }
+
+
     }
 
     //Exits the Scene

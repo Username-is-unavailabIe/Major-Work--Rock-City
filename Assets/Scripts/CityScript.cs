@@ -14,6 +14,7 @@ public class CityScript : MonoBehaviour
     public TextMeshProUGUI Timeleft;
     public Transform Grid;
     public GameManager gm;
+    public TextMeshProUGUI gameleveltext;
 
     //public SceneManager ExpeditionScene = SceneManager.GetSceneAt(1);
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class CityScript : MonoBehaviour
     {
         unitCanvas.enabled = false;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameleveltext.text = "Game Level: " + gm.GameLevel.ToString();
     }
     public void LoadExpedition()
     {

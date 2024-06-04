@@ -9,6 +9,7 @@ public class BattleButtonScript : MonoBehaviour
     public TMPro.TextMeshProUGUI buttontext;
     RockBattleScript RBS;
     public bool isEnemy = false;
+    public string name;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class BattleButtonScript : MonoBehaviour
         if (isEnemy) { RBS = gm.Enemies[index].GetComponent<RockBattleScript>(); }
         else { RBS = gm.BRocks[index].GetComponent<RockBattleScript>(); }
         buttontext.text = RBS.name;
+        name = RBS.name;
     }
 
 

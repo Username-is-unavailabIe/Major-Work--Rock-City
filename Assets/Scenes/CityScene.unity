@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &249879759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1304,6 +1304,7 @@ MonoBehaviour:
   Timeleft: {fileID: 0}
   Grid: {fileID: 148727472}
   gm: {fileID: 0}
+  gameleveltext: {fileID: 1715665646}
 --- !u!1 &521821997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,6 +2149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be77e1ec516771f42acc074b23de13a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RockParent: {fileID: 0}
   GameLevel: 1
   Timeleft: {fileID: 0}
   ExpeditionTime: 0
@@ -2155,6 +2157,7 @@ MonoBehaviour:
   Enemies: []
   EnemyPrefab: {fileID: 1875180148749392034, guid: 285f50c4bbdf80942962543aa9112aef, type: 3}
   BattleRockPrefab: {fileID: 1875180148749392034, guid: b098ba27977dd87478b076ff9e615926, type: 3}
+  EnemyParent: {fileID: 0}
 --- !u!4 &1275904278
 Transform:
   m_ObjectHideFlags: 0
