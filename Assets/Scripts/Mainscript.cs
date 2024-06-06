@@ -199,7 +199,7 @@ public class Mainscript : MonoBehaviour
     public int Generatelevel()
     {
         int level = 1;
-        for (int i = 0; i < GameLevel; i++)
+        for (int i = 0; i < gm.GameLevel; i++)
         {
             level = level + UnityEngine.Random.Range(0, 2);
   

@@ -340,8 +340,8 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b4870000
-    m_LastClickedID: 34740
+    m_SelectedIDs: 2c8c0000
+    m_LastClickedID: 35884
     m_ExpandedIDs: 000000005287000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -397,8 +397,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 56860000
-    m_LastClickedInstanceID: 34390
+    m_SelectedInstanceIDs: 6676ffff
+    m_LastClickedInstanceID: -35226
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -517,9 +517,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 56860000
-      m_LastClickedID: 34390
-      m_ExpandedIDs: aab7ffffacb7ffff8cc6ffff8ec6ffff40cfffff42cffffff8dafffffadafffff8fafffff4ffffff148600003686000040860000568600008a860000da930000fc93000074960000969600001699000038990000529e0000749e0000
+      m_SelectedIDs: a46cffff
+      m_LastClickedID: -37724
+      m_ExpandedIDs: 10adffff1cadffff62bdffff64bdfffff8fafffff4ffffff40860000568600008a8600004ca900006ea9000026b1000048b10000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

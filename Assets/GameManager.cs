@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         }
         int ranNum = Random.Range(0, CombinedList.Count);
         //CombinedList[ranNum].health = 200;
-        print(CombinedList[ranNum].name);
+        //print(CombinedList[ranNum].name);
         return CombinedList[ranNum];
 
         //int Speedtotal = 0;

@@ -39,7 +39,6 @@ public class BattleSceneScript : MonoBehaviour
         FindBROCK();
         CreateEnemies(Mathf.Clamp(Random.Range((gm.BRocks.Count-GameLevel+1), gm.BRocks.Count+GameLevel-1), 1, 1000));
         FindEnemy();
-        RunBattle();
     }
 
     // Create an enemy with a random archetype and level
@@ -173,58 +172,84 @@ public class BattleSceneScript : MonoBehaviour
 
     public void RunBattle()
     {
+        if (gm.Enemies.Count == 0)
+        { print("No Enemies"); }
         RockBattleScript Turn = gm.FindTurn();
         TurnText.text = ($"Turn: {Turn.name}");
         RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
-        print("Target: "+Target.name);
+        //print("Target: "+Target.name);
         int damage = Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3;
         Target.TempHealth -= damage;
+        print("Enemies: " + gm.Enemies.Count);
         if (Target.TempHealth <= 0)
         {
+            bool IsEnemy = true;
+            //GameObject ToRemove = new GameObject();
+            foreach (Transform Prefab in PlayerGrid)
             {
-                foreach (Transform Prefab in PlayerGrid)
+                if (Prefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
                 {
-                    if (Prefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
-                    {
-                        Prefab.GetComponent<Button>().interactable = false;
-                    }
+                    Prefab.GetComponent<Button>().interactable = false;
                 }
-                foreach (GameObject PlayerPrefab in gm.BRocks)
-                {
+            }
+            foreach (GameObject PlayerPrefab in gm.BRocks)
+            {
                     
-                    if (PlayerPrefab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
-                    {
-                        print(PlayerPrefab.GetComponent<RockBattleScript>().name);
-                        gm.BRocks.Remove(PlayerPrefab);
-                        Destroy(PlayerPrefab);
-                    }
-                }
-
-                foreach (Transform EnemyPrefab in EnemyGrid)
+                if (PlayerPrefab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
                 {
-
-                    if (EnemyPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
-                    {
-                        print(EnemyPrefab.GetComponent<BattleButtonScript>().name);
-                        EnemyPrefab.GetComponent<Button>().interactable = false;
-                    }
+                    print(PlayerPrefab.GetComponent<RockBattleScript>().name);
+                    //ToRemove = PlayerPrefab;
+                    IsEnemy = false;
                 }
+            }
 
-                foreach (GameObject Efab in gm.Enemies)
+            foreach (Transform EnemyPrefab in EnemyGrid)
+            {
+
+                if (EnemyPrefab.gameObject.GetComponent<BattleButtonScript>().name == Target.name)
                 {
-                    if (Efab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
-                    {
-                        print(Efab.GetComponent<RockBattleScript>().name);
-                        gm.Enemies.Remove(Efab);
-                        Destroy(Efab);
-                    }
+                    print(EnemyPrefab.GetComponent<BattleButtonScript>().name);
+                    EnemyPrefab.GetComponent<Button>().interactable = false;
+                }
+            }
+
+            foreach (GameObject Efab in gm.Enemies)
+            {
+                if (Efab.gameObject.GetComponent<RockBattleScript>().name == Target.name)
+                {
+                    print(Efab.GetComponent<RockBattleScript>().name);
+                    //ToRemove = Efab;
 
                 }
-               
 
             }
 
+            if (IsEnemy)
+            {
+                gm.Enemies.Remove(Target.gameObject);
+                Destroy(Target.gameObject);
+            }
+            else
+            {
+                gm.BRocks.Remove(Target.gameObject);
+                Destroy(Target.gameObject);
+            }
+
+                
+
+
+            
+
         }
+        print("AAAA");
+        GameWon();
+
+
+    }
+
+
+    public void GameWon()
+    {
         if (gm.Enemies.Count == 0)
         {
             print("You Win!");
@@ -250,12 +275,14 @@ public class BattleSceneScript : MonoBehaviour
             ExitBattle();
         }
 
-
     }
 
     //Exits the Scene
     public void ExitBattle()
     {
         SceneManager.LoadScene(1);
+        gm.Enemies.Clear();
     }
+
+
 }
