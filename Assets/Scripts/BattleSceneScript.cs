@@ -178,7 +178,7 @@ public class BattleSceneScript : MonoBehaviour
         TurnText.text = ($"Turn: {Turn.name}");
         RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
         //print("Target: "+Target.name);
-        int damage = Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3;
+        int damage = Mathf.Clamp((Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3),0, 1999);
         Target.TempHealth -= damage;
         print("Enemies: " + gm.Enemies.Count);
         if (Target.TempHealth <= 0)
