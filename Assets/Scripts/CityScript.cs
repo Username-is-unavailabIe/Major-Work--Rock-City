@@ -26,11 +26,12 @@ public class CityScript : MonoBehaviour
     }
     public void LoadExpedition()
     {
-        if (Time.time > GameManager.StartTime + 20)
+        if (gm.HasRecruited == false)
         {
 
             GameManager.StartTime = Time.time;
             SceneManager.LoadScene(2); 
+            gm.HasRecruited = true;
         }
 
     }

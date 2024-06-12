@@ -42,29 +42,30 @@ public class BattleSceneScript : MonoBehaviour
     }
 
     // Create an enemy with a random archetype and level
-    public void MakeEnemy(int GameLevel)
+    public void MakeEnemy(int EnemyGameLevel)
     {
         print("make");
         // Instantiate enemy and get its script
         GameObject NewEnemy = Instantiate(gm.EnemyPrefab, gm.EnemyParent.transform);
         RockBattleScript EnemyScript = gm.EnemyPrefab.GetComponent<RockBattleScript>();
         // Determine enemy level based on game level, with it being slightly more random at higher levels
-        int leveldeterminer = Random.Range(0, 2 + GameLevel);
+        int leveldeterminer = Random.Range(-EnemyGameLevel, 2 * EnemyGameLevel);
         EnemyScript.Archetype = archetypes[Random.Range(0, archetypes.Count)];
 
         // 10% chance to make the enemy a boss
-        if (Random.Range(1, 10) == 10)
+        if (Random.Range(1, 11) == 10)
         {
-            EnemyScript.level = Mathf.Abs(GameLevel + leveldeterminer+1) * Random.Range(2, 5);
+            EnemyScript.level = Mathf.Abs(EnemyGameLevel + leveldeterminer+1) * Random.Range(2, 5);
             EnemyScript.name = $"BOSS: {EnemyScript.Archetype} {EnemyScript.level}";
         }
         else
         {
 
-            EnemyScript.level = Mathf.Clamp(GameLevel + leveldeterminer, 1, 999);
+            EnemyScript.level = Mathf.Clamp(GameLevel + leveldeterminer, 1, EnemyGameLevel * 2);
             EnemyScript.name = $"{EnemyScript.Archetype} {EnemyScript.level}";
         }
         
+        //generates stats
         GenerateEstats(EnemyScript.level*5);
 
         if (EnemyScript.Archetype == "Wizard" || EnemyScript.Archetype == "Sorcerer")
@@ -80,7 +81,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.magecraft = EStats[0];
             EnemyScript.attack = EStats[EStats.Count-1];
             EnemyScript.health = EStats[EStats.Count - 2];
-            EnemyScript.defence = EStats[EStats.Count - 3];
+            EnemyScript.defence = Mathf.Clamp(EStats[EStats.Count - 3], 1, GameLevel*2);
             EnemyScript.speed = Mathf.Clamp(EStats[3],1 , 9999);
         }
         else if (EnemyScript.Archetype == "Nimble")
@@ -281,7 +282,15 @@ public class BattleSceneScript : MonoBehaviour
     public void ExitBattle()
     {
         SceneManager.LoadScene(1);
+        for (int i = 0; i < gm.EnemyParent.transform.childCount; i++)
+        {
+            Destroy(gm.EnemyParent.transform.GetChild(i).gameObject);
+        }
+        
+
         gm.Enemies.Clear();
+        gm.HasRecruited = false;
+        
     }
 
 

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject EnemyPrefab;
     public GameObject BattleRockPrefab;
     public GameObject EnemyParent;
+    public bool HasRecruited = false;
 
 
     //spawn a new rock
