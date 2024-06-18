@@ -15,7 +15,8 @@ public class BattleSceneScript : MonoBehaviour
     public GameManager gm;
     public RockScript rockScript;
     public int GameLevel;
-    public TextMeshProUGUI TurnText; 
+    public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI dmgText;
     
    // public GameObject EnemyParent;
     public Transform PlayerGrid;
@@ -79,7 +80,7 @@ public class BattleSceneScript : MonoBehaviour
         else if (EnemyScript.Archetype == "Fighter" || EnemyScript.Archetype == "Assassin" || EnemyScript.Archetype == "Tank")
         {
             EnemyScript.magecraft = EStats[0];
-            EnemyScript.attack = EStats[EStats.Count-1];
+            EnemyScript.attack = Mathf.Clamp(EStats[EStats.Count-1],1, GameLevel*5);
             EnemyScript.health = EStats[EStats.Count - 2];
             EnemyScript.defence = Mathf.Clamp(EStats[EStats.Count - 3], 1, GameLevel*2);
             EnemyScript.speed = Mathf.Clamp(EStats[3],1 , 9999);
@@ -100,9 +101,11 @@ public class BattleSceneScript : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            EStats.Add(Random.Range(GameLevel, GameLevel*5));
+            EStats.Add(Random.Range(GameLevel, GameLevel*3));
         }
+        
         InsertionSort();
+        print("Highest Stat is " + EStats[EStats.Count - 1]);
 
     }
 
@@ -179,8 +182,9 @@ public class BattleSceneScript : MonoBehaviour
         TurnText.text = ($"Turn: {Turn.name}");
         RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
         //print("Target: "+Target.name);
-        int damage = Mathf.Clamp((Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3),0, 1999);
+        int damage = Mathf.Clamp((Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3),1, 1999);
         Target.TempHealth -= damage;
+        dmgText.text = "damage:" + damage.ToString();
         print("Enemies: " + gm.Enemies.Count);
         if (Target.TempHealth <= 0)
         {

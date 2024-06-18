@@ -10,10 +10,12 @@ using UnityEngine.UIElements;
 
 public class Mainscript : MonoBehaviour
 {
+    //Variables Needed for each Rock- names, archetypes, subtypes (that was scrapped), stats, etc.
      List<string> firstnames = new List<string> {"Dave", "Alex", "Serena", "Dwayne", "Spencer", "Elizabeth", "Gabriel", "Phoebe", "Malcolm", "Abel", "Cain", "Fitz", "Hawk", "Faker", "Vera", "Lynette", "Kai", "Sunny", "Charlie", "Lilith"};
      List<string> lastnames = new List<string> {"Skullcrusher", "Slasher", "Frazer", "Blackguard", "Nightingale", "The Arcane", "The Wise", "The Unholy", "The Holy", "Farseer", "Windsor", "Bar-Giora", "Visoli", "Steel" };
     public List<string> archetypes = new List<string> { "Wizard", "Sorcerer", "Assassin", "Nimble", "Tank", "Fighter"};
     public List<string> subtypes = new List<string> { "Sky", "Forest", "Blood", "Sea", "Fire", "Earth"};
+   //Pretty much every script needs acccess to game manager and game level off it
     public GameManager gm;
     public int GameLevel;
     public List<int> stats = new List<int>();
@@ -23,9 +25,12 @@ public class Mainscript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //finds the game manager and gamelevel
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        MakeRocks(4);
+        
         GameLevel = gm.GameLevel;
+        //Creates Rocks to pick from
+        MakeRocks(4);
     }
 
     // Update is called once per frame
@@ -207,29 +212,9 @@ public class Mainscript : MonoBehaviour
         return level;
 
 
-        /**float ZScore = RandInt(100)/10;
-        print (ZScore);
-        print(2 * ZScore + GameLevel);
-        int level = Mathf.RoundToInt(2*ZScore + GameLevel);
-        print (level);
-        if (level <= 0)
-        {
-            level = 1;
-        }
-        return level;**/
+
     }
 
-    /**public float RandInt(int repetitions)
-    {
-        int sum = 0;
-        for (int i = 0; i < repetitions; i++) 
-        {
-            int temp = UnityEngine.Random.Range(-3, 4);
-            sum = sum + temp;
-        }
-        //print(sum);
-        return sum;
-    }**/
 
 
     public void InsertionSort()
