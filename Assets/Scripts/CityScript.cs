@@ -20,16 +20,20 @@ public class CityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //The canvas that displays units is turned off by default
         unitCanvas.enabled = false;
+        //Finds game manager and displays game level
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameleveltext.text = "Game Level: " + gm.GameLevel.ToString();
     }
     public void LoadExpedition()
     {
+        //Loads the expedition scene so recruitment can be implemented as long as it hasn't happened so far before battling
         if (gm.HasRecruited == false)
         {
-
+            //Tracks time: this was later made more efficient making this code obsolete
             GameManager.StartTime = Time.time;
+
             SceneManager.LoadScene(2); 
             gm.HasRecruited = true;
         }
@@ -38,6 +42,7 @@ public class CityScript : MonoBehaviour
 
     public void LoadBattle()
     {
+        //Loads Battle Scene
         SceneManager.LoadScene(3);
 
         
@@ -52,8 +57,11 @@ public class CityScript : MonoBehaviour
 
     public void SeeUnits()
     {
+        //Displays unit Canvas
         mainCanvas.enabled = false;
         unitCanvas.enabled = true;
+
+        //Displays the recruited rocks and their relevant information
         foreach (GameObject Rock in gm.BRocks)
         {
             RockBattleScript NewRBS = Rock.GetComponent<RockBattleScript>();
@@ -75,6 +83,7 @@ public class CityScript : MonoBehaviour
 
     public void ExitUnits()
     {
+        //Disables the unit canvas
         mainCanvas.enabled = true;
         unitCanvas.enabled = false;
     }

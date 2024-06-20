@@ -66,7 +66,7 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.name = $"{EnemyScript.Archetype} {EnemyScript.level}";
         }
         
-        //generates stats
+        //generates stats depending on the archetype (grouped together for enemies as they don't need to be as complex)
         GenerateEstats(EnemyScript.level*5);
 
         if (EnemyScript.Archetype == "Wizard" || EnemyScript.Archetype == "Sorcerer")
@@ -93,23 +93,25 @@ public class BattleSceneScript : MonoBehaviour
             EnemyScript.defence = EStats[3];
             EnemyScript.speed = EStats[EStats.Count-1];
         }
-
+        //adds the enemy to the list
         gm.Enemies.Add(NewEnemy);
     }
 
     public void GenerateEstats(int number)
     {
+        //generates a list of possible stats
         for (int i = 0; i < number; i++)
         {
             EStats.Add(Random.Range(GameLevel, GameLevel*3));
         }
-        
+        //sorts the stats from lowest to highest
         InsertionSort();
+        //prints out the highest stat for debugging purposes
         print("Highest Stat is " + EStats[EStats.Count - 1]);
 
     }
 
-    // Find all Battle Rocks and instantiate a prefab for each
+    // Find all player's Rocks and instantiate a prefab for each
     public void FindBROCK()
     {
         for (int i = 0; i < gm.BRocks.Count; i++)
@@ -120,7 +122,7 @@ public class BattleSceneScript : MonoBehaviour
             gm.BRocks[i].GetComponent<RockBattleScript>().TempHealth = gm.BRocks[i].GetComponent<RockBattleScript>().health;
         }
     }
-
+    //Find all Enemies and instantiate a prefab for each
     public void FindEnemy()
     {
         for (int i = 0; i < gm.Enemies.Count; i++)
@@ -176,16 +178,27 @@ public class BattleSceneScript : MonoBehaviour
 
     public void RunBattle()
     {
+        //Runs the batttle
+
+        //debugging purposes
         if (gm.Enemies.Count == 0)
         { print("No Enemies"); }
+
+        //figures out what rock will have its turn + displays it
         RockBattleScript Turn = gm.FindTurn();
         TurnText.text = ($"Turn: {Turn.name}");
+
+        //Finds a target by running a function off the game manager script
         RockBattleScript Target = gm.FindTarget(Turn.gameObject.tag.ToString());
-        //print("Target: "+Target.name);
+        //Calculates and deals damage to the target and displays it
         int damage = Mathf.Clamp((Turn.attack + (Turn.magecraft)/2 - Target.defence - (Target.magecraft)/3),1, 1999);
         Target.TempHealth -= damage;
         dmgText.text = "damage:" + damage.ToString();
+
+        //debugging
         print("Enemies: " + gm.Enemies.Count);
+
+        //Deactivates the button and removes the rock from the script if it has 0 health (regardless of it being a player or enemy)
         if (Target.TempHealth <= 0)
         {
             bool IsEnemy = true;
@@ -246,15 +259,19 @@ public class BattleSceneScript : MonoBehaviour
             
 
         }
+        //debugging
         print("AAAA");
+
+        //Tests if there is 0 enemies or players left
         GameWon();
 
 
     }
 
-
+    
     public void GameWon()
     {
+        //When the game has been won, the level goes up by 2 and each rock levels up, and the city scene is loaded
         if (gm.Enemies.Count == 0)
         {
             print("You Win!");
@@ -273,6 +290,8 @@ public class BattleSceneScript : MonoBehaviour
             gm.GameLevel += 2;
             ExitBattle();
         }
+
+        //Game levels up only once if player loses
         else if (gm.BRocks.Count == 0)
         {
             print("You Lost");
@@ -282,7 +301,7 @@ public class BattleSceneScript : MonoBehaviour
 
     }
 
-    //Exits the Scene
+    //Exits the Scene and clears the enemies
     public void ExitBattle()
     {
         SceneManager.LoadScene(1);
@@ -293,6 +312,8 @@ public class BattleSceneScript : MonoBehaviour
         
 
         gm.Enemies.Clear();
+
+        //means you can recruit again
         gm.HasRecruited = false;
         
     }

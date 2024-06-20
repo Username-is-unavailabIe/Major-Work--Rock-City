@@ -41,6 +41,7 @@ public class Mainscript : MonoBehaviour
 
     public void MakeRocks(int number)
     {
+        //Generates a specified number of rocks
         for (int i = 0; i < number; i++)
         {
             GenerateRock(Generatelevel());
@@ -49,13 +50,15 @@ public class Mainscript : MonoBehaviour
 
     public void GenStats(int Max)
     {
-        
 
+        //Generates 20 numbers inbetween 1 and the level times the rarity + 1 
 
         for (int i = 0; i < 21; i++)
         {
             int temp = UnityEngine.Random.Range(1, Max);
             stats.Add(temp);
+
+            //prints for debugging purposes
             print($"stat number {i} is {stats[i]}");
         }
 
@@ -65,6 +68,7 @@ public class Mainscript : MonoBehaviour
 
     public int GetRarity()
     {
+        //Generates a number corresponding to a rarity, with 1 being most common and 5 being least common
         int temp = UnityEngine.Random.Range(0, 100);
         if (temp > 94) { return 5; }
         else if (temp > 79 && temp < 95) { return 4; }
@@ -77,6 +81,7 @@ public class Mainscript : MonoBehaviour
     {
         foreach (RockScript Rock in Rocks)
         {
+            //Saves the Rock and copies the stats over to RockBattleScript
             if (Rock.Chosen)
             {
                 print(Rock.name);
@@ -106,7 +111,7 @@ public class Mainscript : MonoBehaviour
         NewRockScript.level = level;
         
 
-        //Generates archetype and subtype
+        //Generates archetype and subtype (Subtypes not used)
         int randomarch = UnityEngine.Random.Range(0, archetypes.Count);
         int randomsub = UnityEngine.Random.Range(0, subtypes.Count);
         NewRockScript.Archetype = archetypes[randomarch];
@@ -115,8 +120,10 @@ public class Mainscript : MonoBehaviour
 
         NewRockScript.rarity = GetRarity();
 
+        //generates states 
         GenStats((NewRockScript.level*(NewRockScript.rarity+1)));
 
+        //Sets the stats for the rock depending on
         if (NewRockScript.Archetype == "Wizard")
         {
             NewRockScript.magecraft = stats[20];
@@ -176,6 +183,7 @@ public class Mainscript : MonoBehaviour
             NewRockScript.defence = Mathf.RoundToInt(stats[12] / 4);
             NewRockScript.attack = stats[14];
         }
+
         stats.Clear();
 
         NewRockScript.Chosen = IsChosen(NewRockScript.ChosenToggle);

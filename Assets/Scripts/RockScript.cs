@@ -7,9 +7,8 @@ using UnityEngine.UI;
 
 public class RockScript : MonoBehaviour
 {
-    
+    //Each of the variables needed for the rock and text to display these
     public int points;
-    //xp needed for next level = 100r^(n-1)
     public int level = 1;
     public TextMeshProUGUI leveltext;
     public string name;
@@ -41,7 +40,10 @@ public class RockScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //xp is not implemented fully
         xp = Mathf.RoundToInt(100 * (1-(Mathf.Pow(1.2f, level-1)))/-0.2f);
+
+        //Sets each of the text boxes to display the information they are meant to, respectively
         leveltext.text = level.ToString();
         nametext.text = name;
         ArchText.text = Archetype;
@@ -59,6 +61,7 @@ public class RockScript : MonoBehaviour
 
     public void SetRarity()
     {
+        //Converts the rarity number to a word for ease of understanding
         if ( rarity == 1 ) { raritytext.text = "Common"; }
         else if (rarity == 2 ) { raritytext.text = "Uncommon"; }
         else if (rarity == 3 ) { raritytext.text = "Rare"; }
@@ -68,12 +71,17 @@ public class RockScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Tracks whether the rock is currently chosen or not
         if (ChosenToggle != null && ChosenToggle.isOn) { Chosen = true; }
         else { Chosen = false; }
+
+
         xpNeeded = Mathf.RoundToInt(100 * (1 - Mathf.Pow(1.2f, level)) / -0.2f)-xp;
 
 
     }
+
+    //Ignore this
     public void Getxp(int xpGained)
     {
         xp = xp + xpGained;

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     //spawn a new rock
     public void SpawnRock(RockScript rock)
     {
+
         // Instantiate a new BattleRock and get RockBattleScript off of that
         GameObject Newrock = Instantiate(BattleRockPrefab, RockParent.transform);
         RockBattleScript NewBRS = Newrock.GetComponent<RockBattleScript>();
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //
         EnemyParent = GameObject.Find("EnemiesParent");
         RockParent = GameObject.Find("RocksParent");
         // Call the ShowTime method every second
@@ -87,9 +89,10 @@ public class GameManager : MonoBehaviour
         //print(Time.time);
     }
 
+   //This runs at the start of each turn in battle from the BattleSceneScript and finds a random Rock(script) based off each of their speed
     public RockBattleScript FindTurn()
     {
-
+        //Makes a combined script
         List<RockBattleScript> CombinedList = new List<RockBattleScript>();
 
 
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < BRocks[i].GetComponent<RockBattleScript>().speed; j++)
             {
+                //Adds each rock to the script a number of times equal to its speed
                 CombinedList.Add(BRocks[i].GetComponent<RockBattleScript>());
             }
         }
@@ -104,38 +108,17 @@ public class GameManager : MonoBehaviour
         {
             for (int l = 0; l < Enemies[i].GetComponent<RockBattleScript>().speed; l++)
             {
+                //Adds each enemy to the script a number of times equal to its speed
                 CombinedList.Add(Enemies[i].GetComponent<RockBattleScript>());
             }
         }
         int ranNum = Random.Range(0, CombinedList.Count);
-        //CombinedList[ranNum].health = 200;
-        //print(CombinedList[ranNum].name);
         return CombinedList[ranNum];
 
-        //int Speedtotal = 0;
-        //for (int i = 0; i < BRocks.Count; i++)
-        //{
-        //    RockBattleScript RBSbattle = BRocks[i].GetComponent <RockBattleScript>();
-        //    Speedtotal = Speedtotal + RBSbattle.speed;
-        //}
-        //for (int i = 0; i < Enemies.Count; i++)
-        //{
-        //    RockBattleScript EnemyBS = Enemies[i].GetComponent <RockBattleScript>();
-        //    Speedtotal += EnemyBS.speed;
-        //}
-        //print(Speedtotal);
-        //int TurnRandom = Random.Range(1, Speedtotal);
-        //if (TurnRandom <= BRocks[0].GetComponent<RockBattleScript>().speed)
-        //{
-        //    return 0;
-        //}
-        //else if (TurnRandom > BRocks[0].GetComponent<RockBattleScript>().speed && TurnRandom >= BRocks[1].GetComponent<RockBattleScript>().speed)
-        //{
-
-        //}
     }
     public RockBattleScript FindTarget(string Turnclassification)
     {
+        //If it is an enemies turn a random player is the target and vice versa
         if (Turnclassification == "Enemy")
         {
             return BRocks[Random.Range(0, BRocks.Count)].GetComponent<RockBattleScript>();

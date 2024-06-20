@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-
+    //Playing game brings player to city scene
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
     }
 
+
+    //Quitting game is self explanatory
     public void QuitGame()
     {
         Application.Quit();

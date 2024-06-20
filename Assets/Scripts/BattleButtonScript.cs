@@ -13,9 +13,14 @@ public class BattleButtonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //Finds the game manager
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //gets the script off the rock if its an enemy
         if (isEnemy) { RBS = gm.Enemies[index].GetComponent<RockBattleScript>(); }
+        //gets the script off the rock if its a player
         else { RBS = gm.BRocks[index].GetComponent<RockBattleScript>(); }
+        //makes the button display the rock's name
         buttontext.text = RBS.name;
         name = RBS.name;
     }
