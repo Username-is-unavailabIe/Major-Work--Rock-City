@@ -1,12 +1,7 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class Mainscript : MonoBehaviour
 {
